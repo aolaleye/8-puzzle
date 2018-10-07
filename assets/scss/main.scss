@@ -1,0 +1,53 @@
+// sass --watch main.scss:main.min.css --style compressed
+// base styles
+@import "base/reset";
+@import "base/mixins";
+
+body {
+    @include flexbox;
+    justify-content: center;
+}
+
+.puzzle {
+    background-color: black;
+    @include flexbox;
+    flex-direction: row;
+    margin: 20px 0 0 0;
+    padding: 10px;
+    flex-wrap: wrap;
+    width: 295px;
+    height: 294px;
+    border-radius: 10px;
+}
+
+.tile {
+    list-style: none;
+    background-color: white;
+    width: 80px;
+    height: 80px;
+    @include flexbox;
+    justify-content: center;
+    font-size: 3em;
+    border: 9px outset lightgray;
+    cursor: pointer;
+}
+
+.empty {
+    list-style: none;
+    background-color: black;
+    border: 9px outset black;
+    width: 80px;
+    height: 80px;
+}
+
+figcaption {
+    font-style: italic;
+    font-size: 1.5em;
+    margin: 5px 0 0 35px;
+}
+
+@media only screen and (min-width: 760px) {
+    body {
+        justify-content: flex-start;
+    }
+}
