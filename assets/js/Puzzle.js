@@ -60,7 +60,7 @@ class Puzzle {
                 li.appendChild(tileNumber);
                 li.classList.add("tile");
 
-                // ** Below is the logic to shift each tile upon click. The intention was to detect if the empty space is to the clicked tile's right, left, top or bottom. Opening the console shows that the numbers shift accordingly within the currentOrder array, but attaching each array item to its corresponding html tile causes bugs. Visually, multiple tiles shift at the same time and sometimes even shift diagonally(!). The console does match the correct number with the tile that's been clicked. A little more time to dissect the logic should reveal the source of the bugs ** 
+                /* Below is the logic to shift each tile upon click. The intention is to detect if the empty space is to the clicked tile's right, left, top or bottom. Opening the console shows that the numbers shift accordingly within the currentOrder array, but attaching each array item to its corresponding html tile causes bugs - sometimes multiple tiles shift at the same time or even shift diagonally(!). A little more time to dissect the logic should help to determine the source of the bugs */
                 let clickedTileIndex = currentOrder.indexOf(clickedTile);
                 let leftIndex = clickedTileIndex - 1;
                 let rightIndex = clickedTileIndex + 1;
