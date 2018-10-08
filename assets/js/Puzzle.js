@@ -43,6 +43,8 @@ class Puzzle {
             liArray.push(tiles[i]);
         }    
 
+        liArray.push(space);
+
         // loop through all the tiles in puzzle
         for (let i = 0; i < liArray.length; i++) {
             
@@ -53,6 +55,11 @@ class Puzzle {
                 let clickedTile = parseInt(liArray[i].textContent);
                 console.log(`${clickedTile} clicked!`);
 
+                let li = document.createElement('li');
+                let tileNumber = document.createTextNode(clickedTile);
+                li.appendChild(tileNumber);
+                li.classList.add("tile");
+
                 // ** Below is the logic to shift each tile upon click. The intention was to detect if the empty space is to the clicked tile's right, left, top or bottom. Opening the console shows that the numbers shift accordingly within the currentOrder array, but attaching each array item to its corresponding html tile causes bugs. Visually, multiple tiles shift at the same time and sometimes even shift diagonally(!). The console does match the correct number with the tile that's been clicked. A little more time to dissect the logic should reveal the source of the bugs ** 
                 let clickedTileIndex = currentOrder.indexOf(clickedTile);
                 let leftIndex = clickedTileIndex - 1;
@@ -61,36 +68,51 @@ class Puzzle {
                 let bottomIndex = clickedTileIndex + 3;
 
                 if (currentOrder[rightIndex] === 'empty') { // check if the empty space is to right
-                    puzzle.insertBefore(space, liArray[i]); // inserts html blank space at specified index
                     currentOrder.splice(currentOrder.indexOf('empty'), 1); // removes empty space
                     currentOrder.splice(clickedTileIndex, 0, 'empty');  // replaces with clicked tile
-                    
+                    liArray.splice(liArray.indexOf(space), 1); // removes li space
+                    liArray.splice(clickedTileIndex, 0, space);  // replaces with clicked tile
                 } 
 
                 else if (currentOrder[bottomIndex] === 'empty') { // check if the empty space is on the bottom
-                    puzzle.insertBefore(space, liArray[topIndex]); // inserts html blank space at specified index
                     currentOrder.splice(currentOrder.indexOf('empty'), 1); // removes empty space
                     currentOrder.splice(clickedTileIndex, 1, 'empty'); // replaces with clicked tile
                     currentOrder.splice(bottomIndex, 0, clickedTile);
+                    liArray.splice(liArray.indexOf(space), 1); // removes empty space
+                    liArray.splice(clickedTileIndex, 1, space); // replaces with clicked tile
+                    liArray.splice(bottomIndex, 0, li);
                 } 
                 
                 else if (currentOrder[leftIndex] === 'empty') { // check if the empty space is to left
-                    puzzle.insertBefore(space, liArray[i]); // inserts html blank space at specified index
                     currentOrder.splice(currentOrder.indexOf('empty'), 1); // removes empty space
-                    currentOrder.splice(rightIndex, 0, 'empty'); // replaces with clicked tile
-                    
+                    currentOrder.splice(rightIndex, 0, 'empty'); // replaces with clicked tile  
+                    liArray.splice(liArray.indexOf(space), 1); // removes empty space
+                    liArray.splice(rightIndex, 0, space); // replaces with clicked tile  
                 } 
                 
                 else if (currentOrder[topIndex] === 'empty') { // check if the empty space is on the top
-                    puzzle.insertBefore(space, liArray[bottomIndex]); // inserts html blank space at specified index
                     currentOrder.splice(currentOrder.indexOf('empty'), 1); // removes empty space
                     currentOrder.splice(leftIndex, 1, 'empty'); // replaces with clicked tile
                     currentOrder.splice(topIndex, 0, clickedTile);
+                    liArray.splice(liArray.indexOf(space), 1); // removes empty space
+                    liArray.splice(leftIndex, 1, space); // replaces with clicked tile
+                    liArray.splice(topIndex, 0, li);
                 }
 
                 console.log(currentOrder);
+                console.log(liArray);
 
-                // check if the tiles are placed correctly after each tile click
+                // empty puzzle ul
+                puzzle.innerHTML = '';
+
+                for (let i = 0; i < liArray.length; i++) {
+
+                    // append the new li items from liArray
+                    puzzle.appendChild(liArray[i]);
+
+                }
+
+                // check if the tiles are placed correctly to determine if game has been won
                 this.checkForWin();
 
             });
