@@ -78,7 +78,7 @@ class Puzzle {
                     currentOrder.splice(currentOrder.indexOf('empty'), 1); // removes empty space
                     currentOrder.splice(clickedTileIndex, 1, 'empty'); // replaces with clicked tile
                     currentOrder.splice(bottomIndex, 0, clickedTile);
-                    liArray.splice(liArray.indexOf(space), 1); // removes empty space
+                    liArray.splice(liArray.indexOf(space), 1); // removes li space
                     liArray.splice(clickedTileIndex, 1, space); // replaces with clicked tile
                     liArray.splice(bottomIndex, 0, li);
                 } 
@@ -86,7 +86,7 @@ class Puzzle {
                 else if (currentOrder[leftIndex] === 'empty') { // check if the empty space is to left
                     currentOrder.splice(currentOrder.indexOf('empty'), 1); // removes empty space
                     currentOrder.splice(rightIndex, 0, 'empty'); // replaces with clicked tile  
-                    liArray.splice(liArray.indexOf(space), 1); // removes empty space
+                    liArray.splice(liArray.indexOf(space), 1); // removes li space
                     liArray.splice(rightIndex, 0, space); // replaces with clicked tile  
                 } 
                 
@@ -94,7 +94,7 @@ class Puzzle {
                     currentOrder.splice(currentOrder.indexOf('empty'), 1); // removes empty space
                     currentOrder.splice(leftIndex, 1, 'empty'); // replaces with clicked tile
                     currentOrder.splice(topIndex, 0, clickedTile);
-                    liArray.splice(liArray.indexOf(space), 1); // removes empty space
+                    liArray.splice(liArray.indexOf(space), 1); // removes li space
                     liArray.splice(leftIndex, 1, space); // replaces with clicked tile
                     liArray.splice(topIndex, 0, li);
                 }
